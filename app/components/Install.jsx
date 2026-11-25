@@ -57,10 +57,6 @@ export default function Install() {
         <p className="section__intro">
           Cinco passos e uma pasta extraída, sem instalador.
         </p>
-        <p className="install__aviso">
-          A extensão não está na Chrome Web Store. Como ela é carregada sem compactação, o navegador
-          avisa que não é verificada. É o comportamento esperado.
-        </p>
 
         <div className="install">
           <div>

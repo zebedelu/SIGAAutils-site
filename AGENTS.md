@@ -29,7 +29,7 @@ Landing page de divulgação da extensão SIGAAutils, no espírito de https://ww
 ```
 app/
   layout.jsx          metadata, lang, AOS (CSS + init), ScrollSuave, noscript
-  page.jsx            ordem: Hero, Notice, Benefits, Comments, Install, Faq
+  page.jsx            ordem: Hero, Benefits, Comments, Install, Notice, Faq
   globals.css         tokens, reset, tipografia, todos os componentes
   favicon.ico         gerado por tools/gerar-marca.py
   fonts/              archivo-latin-var.woff2, jetbrains-mono-latin-var.woff2
