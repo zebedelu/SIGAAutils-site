@@ -107,8 +107,29 @@ export default function VideoInstalacao() {
     const aoAndar = () => setAtual(video.currentTime);
     const aoCarregar = () => setDuracao(Number.isFinite(video.duration) ? video.duration : 0);
 
+    /* Primeira requisição de um asset recém-publicado no CDN do Cloudflare
+       volta 200 sem Range e o Chrome marca o vídeo como não buscável, o que
+       quebra a barra. Um load() pega o asset já em cache, com 206. */
+    let jaRecarregou = false;
+    const aoPoderTocar = () => {
+      if (jaRecarregou || video.seekable.length > 0) return;
+      jaRecarregou = true;
+      const onde = video.currentTime;
+      const tocava = !video.paused;
+      video.addEventListener(
+        'loadedmetadata',
+        () => {
+          if (onde > 0) video.currentTime = onde;
+          if (tocava) video.play().catch(() => {});
+        },
+        { once: true }
+      );
+      video.load();
+    };
+
     aoCarregar();
 
+    video.addEventListener('canplay', aoPoderTocar);
     video.addEventListener('play', aoTocar);
     video.addEventListener('pause', aoPausar);
     video.addEventListener('ended', aoPausar);
@@ -135,6 +156,7 @@ export default function VideoInstalacao() {
     return () => {
       clearTimeout(esconderRef.current);
       observador?.disconnect();
+      video.removeEventListener('canplay', aoPoderTocar);
       video.removeEventListener('play', aoTocar);
       video.removeEventListener('pause', aoPausar);
       video.removeEventListener('ended', aoPausar);
