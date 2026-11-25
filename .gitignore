@@ -1,0 +1,9 @@
+﻿node_modules/
+.next/
+out/
+*.log
+.playwright-mcp/
+.opencode/
+.env*
+.DS_Store
+Thumbs.db

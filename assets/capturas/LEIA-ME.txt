@@ -1,0 +1,16 @@
+Capturas do carrossel
+
+Esta pasta é a origem das fotos do carrossel, lida por tools/otimizar-imagens.py:
+
+  painel.png          Painel lateral
+  horarios.png        Horários da turma
+
+Regras:
+
+- 1600×900 (16:9). É o tamanho que a moldura usa; a versão 800×450 sai do script.
+- PNG da tela inteira, sem moldura nem sombra.
+- Depois de salvar, rode:  python tools/otimizar-imagens.py
+
+As três capturas de ../SIGAAutils extensão/assets (tela inicial, calendário e
+notas) continuam vindo de lá. Os outros quatro recursos do carrossel usam vídeo,
+gerado por tools/otimizar-videos.py a partir dos .mp4 da raiz do projeto.

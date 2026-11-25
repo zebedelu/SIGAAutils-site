@@ -1,0 +1,104 @@
+import EsquemaNavegador from './EsquemaNavegador';
+
+const passos = [
+  {
+    titulo: 'Baixe o projeto',
+    texto: (
+      <>
+        Na página do GitHub (
+        <a href="https://github.com/zebedelu/SIGAAutils" target="_blank" rel="noreferrer">
+          github.com/zebedelu/SIGAAutils
+        </a>
+        ), use <strong>Code → Download ZIP</strong> e extraia o arquivo.
+      </>
+    ),
+  },
+  {
+    titulo: 'Abra o gerenciador de extensões',
+    texto: (
+      <>
+        Digite{' '}
+        <code>
+          <EsquemaNavegador />://extensions
+        </code>{' '}
+        na barra de endereço.
+      </>
+    ),
+  },
+  {
+    titulo: 'Ative o Modo desenvolvedor',
+    texto: <>É o interruptor no canto superior direito da página de extensões.</>,
+  },
+  {
+    titulo: 'Carregue a extensão',
+    texto: (
+      <>
+        Clique em <strong>Carregar sem compactação</strong> e escolha a pasta que contém o{' '}
+        <code>manifest.json</code>.
+      </>
+    ),
+  },
+  {
+    titulo: 'Abra o SIGAA',
+    texto: (
+      <>
+        Entre em <strong>sig.ifc.edu.br</strong>. A engrenagem aparece no canto superior esquerdo.
+      </>
+    ),
+  },
+];
+
+export default function Install() {
+  return (
+    <section className="section section--soft" id="instalar">
+      <div className="container" data-aos="fade-up">
+        <h2>Instalar em menos de 2 minutos</h2>
+        <p className="section__intro">
+          Cinco passos e uma pasta extraída, sem instalador.
+        </p>
+
+        <div className="install">
+          <div>
+            <ol className="steps" role="list">
+              {passos.map((p, i) => (
+                <li className="step" key={p.titulo}>
+                  <span className="step__n" aria-hidden="true">
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div className="step__body">
+                    <h3>{p.titulo}</h3>
+                    <p>{p.texto}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <div className="install__notes">
+              <p>
+                Saiu versão nova? O aviso aparece no canto da tela. Volte em{' '}
+                <code>
+                  <EsquemaNavegador />://extensions
+                </code>{' '}
+                e clique no botão de recarregar do cartão do SIGAA utils.
+              </p>
+            </div>
+          </div>
+
+          <aside className="video" aria-label="Vídeo do passo a passo">
+            <div className="video__frame">
+              <span className="video__play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10-6.5a1 1 0 0 0 0-1.72l-10-6.5A1 1 0 0 0 8 5.5Z" />
+                </svg>
+              </span>
+              <span className="video__tag">Vídeo em breve</span>
+            </div>
+            <p className="video__caption">
+              Vídeo passo a passo: da pasta extraída ao SIGAA aberto com a engrenagem no lugar.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </section>
+  );
+}
