@@ -76,6 +76,10 @@ export default function Install() {
 
             <div className="install__notes">
               <p>
+                A extensão não está na Chrome Web Store. Como ela é carregada sem compactação, o
+                navegador avisa que não é verificada. É o comportamento esperado.
+              </p>
+              <p>
                 Saiu versão nova? O aviso aparece no canto da tela. Volte em{' '}
                 <code>
                   <EsquemaNavegador />://extensions
@@ -89,9 +93,6 @@ export default function Install() {
             <div className="video__frame">
               <VideoInstalacao />
             </div>
-            <p className="video__caption">
-              Vídeo passo a passo: da pasta extraída ao SIGAA aberto com a engrenagem no lugar.
-            </p>
           </aside>
         </div>
       </div>
