@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const ESPERA_CONTROLES = 5000;
+const ESPERA_CONTROLES = 2000;
 const SALTO = 5;
 
 const icones = {
