@@ -949,54 +949,20 @@ code {
 .video__frame {
   position: relative;
   aspect-ratio: 16 / 9;
-  display: grid;
-  place-items: center;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  background: radial-gradient(120% 120% at 20% 10%, #2f9e41 0%, #096318 62%, #064d14 100%);
+  border: 1px solid var(--line);
+  background: #000000;
   box-shadow: 0 40px 70px -52px rgba(9, 99, 24, 0.9);
 }
 
-.video__frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1px);
-  background-size: 18px 18px;
-  opacity: 0.5;
-}
-
-.video__play {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 66px;
-  height: 66px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.94);
-  color: var(--brand-strong);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.28);
-}
-
-.video__play svg {
-  width: 24px;
-  height: 24px;
-  margin-left: 3px;
-}
-
-.video__tag {
-  position: absolute;
-  bottom: 16px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  color: #ffffff;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  opacity: 0.92;
+.video__frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000000;
+  cursor: pointer;
 }
 
 .video__caption {
@@ -1007,9 +973,179 @@ code {
   text-align: center;
 }
 
+/* ---------- player do tutorial ----------
+
+   Os controles ficam por cima da imagem, então tudo que é texto e ícone
+   usa --on-brand sobre uma faixa escura semitransparente: lê igual sobre
+   quadro claro e quadro escuro. A visibilidade é comandada pelo JS
+   (data-visivel) e, no teclado, pelo :focus-within da própria barra. */
+
+.vplayer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  isolation: isolate;
+  color: var(--on-brand);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vplayer__bar {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 30px 12px 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.34) 48%,
+    rgba(0, 0, 0, 0.74) 80%,
+    rgba(0, 0, 0, 0.86) 100%
+  );
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  pointer-events: none;
+}
+
+.vplayer[data-visivel="true"] .vplayer__bar,
+.vplayer__bar:focus-within {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.vplayer button {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.16s ease, transform 0.16s ease;
+}
+
+.vplayer button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.vplayer button.vplayer__play {
+  background: var(--on-brand);
+  color: var(--text);
+}
+
+.vplayer button.vplayer__play:hover {
+  background: var(--tint);
+}
+
+.vplayer button.vplayer__play:active {
+  transform: scale(0.94);
+}
+
+.vplayer button.vplayer__full {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.vplayer button.vplayer__full:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* anel do projeto, com halo branco para o verde escuro não se perder
+   sobre o quadro do vídeo */
+.vplayer :focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 8px var(--on-brand);
+}
+
+.vplayer__seek {
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  height: 28px;
+  min-width: 0;
+  cursor: pointer;
+  touch-action: pan-y;
+  border-radius: 999px;
+}
+
+.vplayer__track {
+  display: block;
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.34);
+  overflow: hidden;
+}
+
+.vplayer__fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--on-brand);
+  transform: scaleX(var(--p, 0));
+  transform-origin: 0 50%;
+}
+
+/* o ponto fica dentro das pontas da barra mesmo em 0% e em 100% */
+.vplayer__dot {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--p, 0) * (100% - 12px) + 6px);
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 999px;
+  background: var(--on-brand);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+
+.vplayer__time {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  color: var(--on-brand);
+  white-space: nowrap;
+}
+
+.vplayer:fullscreen {
+  border-radius: 0;
+  background: var(--text);
+}
+
+.vplayer:fullscreen .vplayer__bar {
+  padding: 56px 20px calc(16px + env(safe-area-inset-bottom, 0px));
+  gap: 12px;
+}
+
+@media (min-width: 480px) {
+  .vplayer__bar {
+    gap: 10px;
+    padding-top: 40px;
+  }
+}
+
 @media (min-width: 1024px) {
   .install {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.02fr);
     gap: 56px;
   }
 

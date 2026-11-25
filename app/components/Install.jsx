@@ -1,4 +1,5 @@
 import EsquemaNavegador from './EsquemaNavegador';
+import VideoInstalacao from './VideoInstalacao';
 
 const passos = [
   {
@@ -86,12 +87,7 @@ export default function Install() {
 
           <aside className="video" aria-label="Vídeo do passo a passo">
             <div className="video__frame">
-              <span className="video__play" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5.5v13a1 1 0 0 0 1.5.86l10-6.5a1 1 0 0 0 0-1.72l-10-6.5A1 1 0 0 0 8 5.5Z" />
-                </svg>
-              </span>
-              <span className="video__tag">Vídeo em breve</span>
+              <VideoInstalacao />
             </div>
             <p className="video__caption">
               Vídeo passo a passo: da pasta extraída ao SIGAA aberto com a engrenagem no lugar.
