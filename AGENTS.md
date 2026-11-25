@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Landing page de divulgação da extensão SIGAAutils, no espírito de https://www.wawplus.com. Fica em `SIGAAutils site/`, dentro da raiz `..` — o projeto pai (`../AGENTS.md`) descreve a extensão e o modo como ela é distribuída. **Esta pasta não é repositório git**: o único repo aqui é `../SIGAAutils extensão/`, de onde saem as datas do changelog. O desenho está em `docs/plans/2026-11-24-landing-page.md` (v1, com o registro de execução; v2 e v3 nas seções 12 e 13). A direção visual atual é a v3, descrita aqui.
+Landing page de divulgação da extensão SIGAAutils, no espírito de https://www.wawplus.com. Fica em `SIGAAutils site/`, dentro da raiz `..` — o projeto pai (`../AGENTS.md`) descreve a extensão e o modo como ela é distribuída. **Esta pasta é o repositório `zebedelu/SIGAAutils-site`** (público, branch `main`), separado de `../SIGAAutils extensão/`, de onde saem as datas do changelog. O desenho está em `docs/plans/2026-11-24-landing-page.md` (v1, com o registro de execução; v2 e v3 nas seções 12 e 13). A direção visual atual é a v3, descrita aqui.
 
 ## Stack
 
@@ -73,4 +73,8 @@ docs/plans/           plano do desenho e registro das três versões
 
 ## Publicação (Cloudflare Pages)
 
-Build `npm run build`, diretório de saída `out`, Node 20 pelo `.nvmrc`. `metadataBase` em `app/layout.jsx` está com `https://sigaa-utils.pages.dev` provisório — trocar pelo domínio real antes de divulgar, senão o `og:image` aponta para o lugar errado.
+No ar em **https://sigaautils.pages.dev**.
+
+O projeto `sigaautils` do Cloudflare Pages está ligado ao repositório `zebedelu/SIGAAutils-site`: push na `main` gera deployment de produção, as demais branches geram preview. Build `npm run build`, diretório de saída `out`, Node 20 (o `.nvmrc` do repo fixa; `NODE_VERSION=20` está nas variáveis de ambiente como reforço). `metadataBase` em `app/layout.jsx` aponta para `https://sigaautils.pages.dev` — se o domínio mudar, corrigir ali, senão o `og:image` aponta para o lugar errado.
+
+O projeto do Pages só aceita essa ligação na criação: um projeto de upload manual não vira projeto de Git depois (`You cannot update the source object in a Direct Uploads project`). Se precisar recriar, crie pelo painel ou por API com `source.type = github`.
